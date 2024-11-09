@@ -37,9 +37,13 @@ def main(mtx, gamma=1e-2):
     mtx: filename for input data
     gamma: regularization parameter for sinkhorn algorithm
     """
+    # Convert gamma to float explicitly
+    gamma = float(gamma)
 
-    cij = np.loadtxt(mtx)
-    
+    # Load the cost matrix
+    cij = np.loadtxt(mtx, dtype=np.float64)  # Ensure numeric data type
+    print("Loaded matrix:\n", cij)  # Debugging print statement
+
     # Start the timer
     start_time = time.time()
 
@@ -47,6 +51,7 @@ def main(mtx, gamma=1e-2):
 
     # Stop the timer
     end_time = time.time()
+
     # Calculate the duration
     duration = end_time - start_time
     print(f"Time taken: {duration:.4f} seconds")
@@ -56,6 +61,7 @@ def main(mtx, gamma=1e-2):
                X=p,
                header=f"Regularized LAP result: {w}",
                fmt="%10.5e")
+
 
 if __name__ == '__main__':
     main(*sys.argv[1:])

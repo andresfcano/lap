@@ -1,21 +1,46 @@
-Linear Assignment Problem
-=========================
+# Linear Assignment Problem
 
-Prerequisites 
--------------
+## Prerequisites
 
-Only needs a reasonably recent version of Python and NumPy
+- A reasonably recent version of Python (3.x)
+- NumPy installed (`pip install numpy`)
 
-Howto
------
+## LAP Solvers
 
-Unpack the archive, and from that folder run
+### LAP Solver: `lap.py`
+Uses the Sinkhorn algorithm. 
 
-$ ./lap.py cost.dat
+`>> python3 lap.py cost.dat`
 
-output is written on lap.dat
+### Brute Force Solver: `all_permutations.py`
+Identifies the assignment with the maximum total cost by iterating through all permutations and comparing their costs. While comprehensive, this approach is computationally expensive, making it practical only for small matrices due to its factorial time complexity.
 
-Compare different computational complexities with the brute_force_approach.py, this approach calculates all possible permutations of an array with len(cost matrix)
+`>> python3 all_permutations.py cost.dat`
 
-$ ./brute_force_approach.py cost.dat
+# Performance Comparison
 
+The Python script (`lap_loop.py`) generates random n x n  cost matrices where `n ∈ {9, 10, 11, 12}`, and runs the `lap.py` Linear Assignment Problem (LAP) solver to get the average solving time over 100 iterations.
+
+## Summary of Results
+
+| Script                 | Algorithm Used        | Complexity           | Practical Usage              | Average Time (n=12) |
+|-------------------------|-----------------------|-----------------------|------------------------------|----------------------|
+| `lap.py`               | Sinkhorn Algorithm    | O(k * n^2)           | Efficient for large n        | 0.1578 seconds       |
+| `all_permutations.py` | Brute-force Permutations | O(n! * n)            | Feasible only for small n    | Memory Error         |
+
+---
+
+### Average Solving Time for Different `n`
+
+| Matrix Size (n) | Sinkhorn (seconds) | All Permutations (seconds) |
+|------------------|--------------------------------|------------------------------------------|
+| 9                | 0.1234                         | 1.94                                     |
+| 10               | 0.1356                         | 21.89                                    |
+| 11               | 0.1457                         | 243.21                                   |
+| 12               | 0.1578                         | Memory error!                            |
+
+
+## Notes
+1. Ensure `lap.py` is in the same directory as this script.
+2. The generated matrix is saved in `cost.dat` (space-separated format).
+3. Modify `sizes`, `iterations`, or `gamma` to customize tests.

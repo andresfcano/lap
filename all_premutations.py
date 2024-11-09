@@ -62,9 +62,5 @@ if __name__ == "__main__":
     # Calculate the duration
     duration = end_time - start_time
     
-    # print("Possible Assignments and their Costs:")
-    # for assignment, cost in zip(assignments, costs):
-    #     print(f"Assignment: {assignment}, Cost: {cost}")
-    
     print(f'Max cost: {max_cost}')
     print(f"Time taken: {duration:.4f} seconds")
